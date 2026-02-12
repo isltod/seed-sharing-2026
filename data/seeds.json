@@ -9,7 +9,7 @@
     "id": 2,
     "family": "가지과",
     "name": "까망가지",
-    "quantity": 6
+    "quantity": 5
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "id": 4,
     "family": "가지과",
     "name": "흑토끼토마토",
-    "quantity": 9
+    "quantity": 8
   },
   {
     "id": 5,
@@ -33,7 +33,7 @@
     "id": 6,
     "family": "박과",
     "name": "고지박",
-    "quantity": 3
+    "quantity": 2
   },
   {
     "id": 7,
@@ -63,7 +63,7 @@
     "id": 11,
     "family": "콩과",
     "name": "베틀콩",
-    "quantity": 23
+    "quantity": 22
   },
   {
     "id": 12,
@@ -87,7 +87,7 @@
     "id": 15,
     "family": "콩과",
     "name": "비단팥",
-    "quantity": 33
+    "quantity": 32
   },
   {
     "id": 16,

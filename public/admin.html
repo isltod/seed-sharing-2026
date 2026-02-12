@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지 - 씨앗 나눔</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container" style="max-width: 1000px;">
+        <header>
+            <h1>관리자 페이지</h1>
+        </header>
+
+        <div class="admin-nav">
+            <button class="nav-btn active" onclick="switchTab('inventory')">씨앗 재고 관리</button>
+            <button class="nav-btn" onclick="switchTab('applicants')">신청자 현황</button>
+        </div>
+
+        <!-- Inventory Tab -->
+        <div id="inventory" class="tab-content active">
+            <h2>씨앗 재고 목록</h2>
+            <div style="margin-bottom: 10px;">
+                <button class="export-btn" onclick="saveInventory()">변경사항 저장</button>
+                <button class="export-btn" style="background-color: #4caf50;" onclick="addSeed()">+ 새 씨앗 추가</button>
+                <div style="margin-top: 10px; display: inline-block;">
+                    <input type="file" id="csvFileInput" accept=".csv" style="display: none;" onchange="uploadCsv()">
+                    <button class="export-btn" style="background-color: #ff9800;"
+                        onclick="document.getElementById('csvFileInput').click()">CSV로 초기화</button>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>과 (Family)</th>
+                        <th>품종명</th>
+                        <th>재고 (개)</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody id="inventoryTableBody">
+                    <!-- Loaded dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Applicants Tab -->
+        <div id="applicants" class="tab-content">
+            <h2>신청자 목록</h2>
+            <button class="export-btn" onclick="exportApplicants()">CSV로 내보내기</button>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>시간</th>
+                            <th>이름</th>
+                            <th>전화번호</th>
+                            <th>주소</th>
+                            <th>회원여부</th>
+                            <th>신청 씨앗</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicantTableBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>

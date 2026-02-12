@@ -1,9 +1,9 @@
 let seedsData = [];
 let applicantsData = [];
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadInventory();
-    loadApplicants();
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadInventory();
+    await loadApplicants();
 });
 
 function switchTab(tabId) {

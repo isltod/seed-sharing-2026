@@ -100,6 +100,16 @@ app.get('/api/applicants', (req, res) => {
     }
 });
 
+// API: Delete All Applicants (Admin)
+app.delete('/api/applicants', (req, res) => {
+    try {
+        writeJson(APPLICANTS_FILE, []);
+        res.json({ success: true, message: 'All applicants deleted.' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete applicants' });
+    }
+});
+
 // API: Update Seed Stock (Admin)
 app.post('/api/seeds', (req, res) => {
     try {

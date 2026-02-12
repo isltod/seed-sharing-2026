@@ -1,10 +1,22 @@
 let seedsData = [];
 let applicantsData = [];
 
-document.addEventListener('DOMContentLoaded', async () => {
-    await loadInventory();
-    await loadApplicants();
-});
+// document.addEventListener('DOMContentLoaded', async () => {
+//     await loadInventory();
+//     await loadApplicants();
+// });
+
+function checkPassword() {
+    const pwd = document.getElementById('adminPassword').value;
+    if (pwd === 'seedapp4020') {
+        document.getElementById('loginOverlay').style.display = 'none';
+        document.getElementById('adminContent').style.display = 'block';
+        loadInventory();
+        loadApplicants();
+    } else {
+        alert('비밀번호가 올바르지 않습니다.');
+    }
+}
 
 function switchTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -239,4 +251,23 @@ function exportApplicants() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+async function resetApplicants() {
+    try {
+        const res = await fetch('/api/applicants', {
+            method: 'DELETE'
+        });
+
+        if (res.ok) {
+            alert('모든 신청자 데이터가 삭제되었습니다.');
+            loadApplicants();
+        } else {
+            const err = await res.json();
+            alert('삭제 실패: ' + (err.error || 'Unknown error'));
+        }
+    } catch (err) {
+        console.error('Error resetting applicants:', err);
+        alert('서버 오류가 발생했습니다.');
+    }
 }

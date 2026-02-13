@@ -149,4 +149,7 @@ app.post('/seeds', async (req, res) => {
 // OR we implement a simple client-side parser to JSON before sending.
 
 // Expose Express app as a single Cloud Function:
-exports.app = functions.https.onRequest(app);
+const mainApp = express();
+mainApp.use('/seed-sharing-2026/api', app);
+mainApp.use('/api', app); // Generic fallback if needed, or for local testing without prefix
+exports.app = functions.https.onRequest(mainApp);

@@ -8,6 +8,10 @@
         ],
         "rewrites": [
             {
+                "source": "/seed-sharing-2026/api/**",
+                "function": "app"
+            },
+            {
                 "source": "/api/**",
                 "function": "app"
             }

@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let maxSeeds = 5;
 
     // Fetch Seeds
-    fetch('/api/seeds')
+    fetch('api/seeds')
         .then(res => res.json())
         .then(data => {
             seeds = data;
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const res = await fetch('/api/apply', {
+            const res = await fetch('api/apply', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

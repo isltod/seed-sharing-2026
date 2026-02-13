@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const multer = require('multer');
+const csv = require('csv-parser');
 
 const app = express();
 const PORT = 3000;
@@ -24,8 +26,11 @@ if (!fs.existsSync(APPLICANTS_FILE)) {
 const readJson = (filePath) => JSON.parse(fs.readFileSync(filePath, 'utf8'));
 const writeJson = (filePath, data) => fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
+// API Router
+const apiRouter = express.Router();
+
 // API: Get Seed List
-app.get('/api/seeds', (req, res) => {
+apiRouter.get('/seeds', (req, res) => {
     try {
         const seeds = readJson(SEEDS_FILE);
         res.json(seeds);
@@ -35,7 +40,7 @@ app.get('/api/seeds', (req, res) => {
 });
 
 // API: Submit Application
-app.post('/api/apply', (req, res) => {
+apiRouter.post('/apply', (req, res) => {
     try {
         const { name, phone, address, isMember, selectedSeeds } = req.body;
 
@@ -91,7 +96,7 @@ app.post('/api/apply', (req, res) => {
 });
 
 // API: Get Applicants (Admin)
-app.get('/api/applicants', (req, res) => {
+apiRouter.get('/applicants', (req, res) => {
     try {
         const applicants = readJson(APPLICANTS_FILE);
         res.json(applicants);
@@ -101,7 +106,7 @@ app.get('/api/applicants', (req, res) => {
 });
 
 // API: Delete All Applicants (Admin)
-app.delete('/api/applicants', (req, res) => {
+apiRouter.delete('/applicants', (req, res) => {
     try {
         writeJson(APPLICANTS_FILE, []);
         res.json({ success: true, message: 'All applicants deleted.' });
@@ -111,7 +116,7 @@ app.delete('/api/applicants', (req, res) => {
 });
 
 // API: Update Seed Stock (Admin)
-app.post('/api/seeds', (req, res) => {
+apiRouter.post('/seeds', (req, res) => {
     try {
         const newSeeds = req.body;
         if (!Array.isArray(newSeeds)) {
@@ -124,11 +129,10 @@ app.post('/api/seeds', (req, res) => {
     }
 });
 
-const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
 // API: Initialize Seeds from CSV (Admin)
-app.post('/api/seeds/init', upload.single('file'), (req, res) => {
+apiRouter.post('/seeds/init', upload.single('file'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
     }
@@ -163,6 +167,11 @@ app.post('/api/seeds/init', upload.single('file'), (req, res) => {
         });
 });
 
+// Mount the API Router
+app.use('/seed-sharing-2026/api', apiRouter);
+// app.use('/api', apiRouter); // Optional fallback
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Access the app at http://localhost:${PORT}/seed-sharing-2026/`);
 });

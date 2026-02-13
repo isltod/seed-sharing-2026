@@ -29,7 +29,7 @@ function switchTab(tabId) {
 // Inventory Logic
 async function loadInventory() {
     try {
-        const res = await fetch('/api/seeds');
+        const res = await fetch('api/seeds');
         seedsData = await res.json();
         renderInventory();
     } catch (err) {
@@ -92,7 +92,7 @@ function deleteSeed(index) {
 
 async function saveInventory() {
     try {
-        const res = await fetch('/api/seeds', {
+        const res = await fetch('api/seeds', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(seedsData)
@@ -158,7 +158,7 @@ async function uploadCsv() {
 
         try {
             // Use the "Update All" endpoint which accepts JSON
-            const res = await fetch('/api/seeds', {
+            const res = await fetch('api/seeds', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newSeeds)
@@ -184,7 +184,7 @@ async function uploadCsv() {
 // Applicant Logic
 async function loadApplicants() {
     try {
-        const res = await fetch('/api/applicants');
+        const res = await fetch('api/applicants');
         applicantsData = await res.json();
         renderApplicants();
     } catch (err) {
@@ -255,7 +255,7 @@ function exportApplicants() {
 
 async function resetApplicants() {
     try {
-        const res = await fetch('/api/applicants', {
+        const res = await fetch('api/applicants', {
             method: 'DELETE'
         });
 
